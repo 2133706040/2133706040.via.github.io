@@ -25,6 +25,9 @@
         margin: 32px auto auto;
         text-align: center;
         font-size: 0;
+        .weather-box {
+            display: inline-block;
+        }
         .btn {
             display: inline-block;
             width: 56px;
@@ -43,9 +46,17 @@
             transition: border-radius 3s;
             cursor: pointer;
             &.btn-weather {
+                padding-top: 12px;
+                line-height: 16px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
                 background-color: #ff6da0;
                 background-image: url(../img/ic-sun.png);
                 box-shadow: 0 0 6px #ff6da0;
+                .celsius {
+                    display: block;
+                }
             }
             &.btn-qrcode {
                 background-color: #23aaf2;

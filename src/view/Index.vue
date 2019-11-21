@@ -3,11 +3,9 @@
         <div class="widget google"></div>
         <!-- 搜索盒子 -->
         <search-box />
-        <!-- 天气盒子 -->
-        <weather-box ref="weather"/>
         <div class="toolbar">
-            {{ radius }}
-            <a class="btn btn-weather" :style="radius[0]" @click="weather">天气</a>
+            <!-- 天气盒子 -->
+            <weather-box :radius="radius[0]"/>
             <a class="btn btn-qrcode" :style="radius[1]" href="https://cli.im/">二维码</a>
             <a class="btn btn-apk" :style="radius[2]" href="https://apkcombo.com/zh-cn/apk-downloader/">软件</a>
         </div>
@@ -31,9 +29,6 @@ export default {
         SearchBox
     },
     methods: {
-        weather () {
-            this.$refs.weather.toggleWeather(true)
-        },
         random () {
             // 指定范围随机整数 m ~ n，公式：Math.floor(Math.random()*(n-m))+m 
             return  (50 + (Math.floor(Math.random()*(20)) - 10)) + '%'
