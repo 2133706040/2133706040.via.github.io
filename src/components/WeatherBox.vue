@@ -93,6 +93,8 @@ export default {
                 // let local = prompt(str)
                 // if(!local) local = 'auto_ip'
 
+                console.log('调整为判断ip区域')
+
                 let local = 'auto_ip'
 
                 this.param.location = local
@@ -129,10 +131,12 @@ export default {
             })
         },
         getWeather () {
-            $.get(`${ $.path.weather }`, this.param).then(({ HeWeather6 }) => {
+            console.dir('开始获取天气')
+            $.get($.path.weather, this.param).then(({ HeWeather6 }) => {
+
+                console.dir('天气信息请求成功')
 
                 let { basic, daily_forecast, lifestyle, now, status, update } = HeWeather6.pop()
-
 
                 if(status == 'ok') {
                     
@@ -144,6 +148,9 @@ export default {
 
                 }
             }).catch(() => {
+
+                console.error('天气信息请求失败')
+
                 this.now.tmp = '--'
             })
         }
@@ -152,13 +159,15 @@ export default {
             this.geolocation().then(coords => {
 
                 // 获取到浏览器提供的位置信息
+                console.log(`自动获取位置${coords}`)
+
                 this.param.location = coords
                 this.getWeather()
 
             }).catch(err => {
 
                 // 未获取到浏览器提供的位置信息，转入手动设置
-                console.log(`${err}请手动输入你的所在位置（留空则自动判断ip）`)
+                console.error(err)
                 this.setlocation()
                 
             })
