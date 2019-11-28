@@ -104,7 +104,7 @@ export default {
         },
         geolocation () {
             
-            let gl = new Promise ((resolve, reject) => {
+            return new Promise ((resolve, reject) => {
                 
                 let local = cookie.get('location')
                 if(local) resolve(local)
@@ -133,7 +133,6 @@ export default {
                     reject('自动获取位置超时，取消任务')
                 }, 1e3);
             })
-            return 
         },
         getWeather () {
             console.dir('开始获取天气')
