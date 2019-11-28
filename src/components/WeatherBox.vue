@@ -8,7 +8,7 @@
                     <div class="row">
                         <div class="location pull-left">
                             {{ basic.admin_area + basic.parent_city + (basic.parent_city == basic.location ? '' : basic.location) }}
-                            <span class="link" @click="setlocation(`请输入你的所在位置（留空则自动判断ip）`)">切换</span>
+                            <span class="link" @click="setlocation(`请输入你的所在位置 ( 不输入 = 获取ip位置 )`)">切换</span>
                         </div>
                         <div class="pull-right"><a class="link" href="https://heweather.com" target="_blank">@和风天气</a></div>
                     </div>
@@ -88,14 +88,15 @@ export default {
 
             this.status = status
         },
-        setlocation (str) {
+        setlocation (local) {
 
-                // let local = prompt(str)
-                // if(!local) local = 'auto_ip'
-
-                console.log('调整为判断ip区域')
-
-                let local = 'auto_ip'
+                if(!local) {
+                    local = 'auto_ip'
+                    console.log('调整为判断ip区域')
+                } else {
+                    local = prompt(local)
+                    if(!local) local = 'auto_ip'
+                }
 
                 this.param.location = local
                 cookie.set('location', local)
