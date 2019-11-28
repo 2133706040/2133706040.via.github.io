@@ -90,8 +90,10 @@ export default {
         },
         setlocation (str) {
 
-                let local = prompt(str)
-                if(!local) local = 'auto_ip'
+                // let local = prompt(str)
+                // if(!local) local = 'auto_ip'
+
+                let local = 'auto_ip'
 
                 this.param.location = local
                 cookie.set('location', local)
@@ -139,7 +141,10 @@ export default {
                     this.daily_forecast = daily_forecast
                     this.now = now
                     this.update = update
+
                 }
+            }).catch(() => {
+                this.now.tmp = '--'
             })
         }
     },
@@ -153,8 +158,8 @@ export default {
             }).catch(err => {
 
                 // 未获取到浏览器提供的位置信息，转入手动设置
-
-                this.setlocation(`${err}请手动输入你的所在位置（留空则自动判断ip）`)
+                console.log(`${err}请手动输入你的所在位置（留空则自动判断ip）`)
+                this.setlocation()
                 
             })
     }
