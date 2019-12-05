@@ -99,7 +99,7 @@ export default {
                 }
 
                 this.param.location = local
-                cookie.set('location', local)
+                cookie.set('location', local, 3)
 
                 this.getWeather()
         },
@@ -123,7 +123,7 @@ export default {
 
                     local = `${longitude},${latitude}`
 
-                    cookie.set('location', local)
+                    cookie.set('location', local, 3)
                     resolve(local)
 
                 }, ({ message }) => {
