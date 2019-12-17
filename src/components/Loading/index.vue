@@ -41,7 +41,7 @@ export default {
         left: 0;
         position: fixed;
         background-color: rgba(0,0,0,0.8);
-        background-image: url(../../assets/img/loading.gif);
+        background-image: url(//sdk-web.eyougame.com/static/img/loading.gif?1576563718214);
         background-position: center;
         background-repeat: no-repeat;
         z-index: 99;

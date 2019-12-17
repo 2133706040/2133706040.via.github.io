@@ -143,7 +143,7 @@ export default {
             background-repeat: no-repeat;
             background-size: auto 100%;
             background-color: #fff;
-            background-image: url(//ahjx.eyougame.com/src/img/ic-search.gif);
+            background-image: url(//sdk-web.eyougame.com/static/img/ic-search.gif?1576563718214);
             cursor: pointer;
         }
     }

@@ -12,13 +12,13 @@
     margin: auto;
     @extend .clearfix;
     @include bg;
-    background-image: url(//ahjx.eyougame.com/src/img/pic.jpg);
+    background-image: url(//sdk-web.eyougame.com/static/img/pic.jpg?1576563718214);
     .widget.google {
         width: 32%;
         padding-top: 14.6%;
         margin: 40% auto auto;
         @include bg;
-        background-image: url(//ahjx.eyougame.com/src/img/google.gif);
+        background-image: url(//sdk-web.eyougame.com/static/img/google.gif?1576563718214);
     }
     .toolbar {
         width: 90%;
@@ -52,7 +52,7 @@
                 text-overflow: ellipsis;
                 white-space: nowrap;
                 background-color: #ff6da0;
-                background-image: url(../img/ic-sun.png);
+                background-image: url(//sdk-web.eyougame.com/static/img/ic-sun.png?1576563718214);
                 box-shadow: 0 0 6px #ff6da0;
                 .celsius {
                     display: block;
@@ -60,12 +60,12 @@
             }
             &.btn-qrcode {
                 background-color: #23aaf2;
-                background-image: url(../img/ic-qrcode.png);
+                background-image: url(//sdk-web.eyougame.com/static/img/ic-qrcode.png?1576563718214);
                 box-shadow: 0 0 6px #23aaf2;
             }
             &.btn-apk {
                 background-color: #44c546;
-                background-image: url(../img/ic-apk.png);
+                background-image: url(//sdk-web.eyougame.com/static/img/ic-apk.png?1576563718214);
                 box-shadow: 0 0 6px #44c546;
             }
         }
