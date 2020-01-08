@@ -4,9 +4,19 @@
             {{ Engines[engine]['text'] }}
         </span>
         <select-list :option="Engines" @select="selectEngine" ref="engineList"/>
-        <input type="text" class="text" @blur="removeSuggest" @keydown.enter="submit(enterText)" v-model="text" ref="input" placeholder="你要搜点什么？≖‿≖✧">
+        <input
+            type="text"
+            class="text"
+            @blur="removeSuggest"
+            @keydown.enter="quickSubmit"
+            @keydown.up="suggestWithKeyBoard(-1)"
+            @keydown.down="suggestWithKeyBoard(1)"
+            v-model.trim="text"
+            ref="input"
+            placeholder="你要搜点什么？≖‿≖✧"
+        >
         <select-list :option="suggest" @select="useSuggest" ref="suggestList"/>
-        <button class="submit" @click="submit(text)"></button>
+        <button class="submit" @click="submit"></button>
     </div>
 </template>
 
@@ -14,25 +24,24 @@
 
 import SelectList from './SelectList'
 import Engines from '~/js/search-engine'
-import { cookie } from '~/js/utils'
 
 export default {
     name: 'SearchBox',
     data () {
         return {
-            engine: + cookie.get('engine') || 0,
+            engine: 0,
             Engines,
             suggest: [],
+            suggestStatus: false,
             suggestTimeOut: undefined,
             text: '',
+            uninput: false,
+            uninputIdx: undefined
         }
     },
     computed: {
         suggestList () {
             return this.$refs.suggestList
-        },
-        enterText () {
-            return this.suggest.length ? this.suggest[0].text : this.text
         }
     },
     components: {
@@ -40,56 +49,89 @@ export default {
     },
     watch: {
         text (newText, oldText) {
+            // 输入监听
             if(oldText === newText) return
-            let tmp = newText.trim()
-            if(!tmp) {
+            if(!newText) {
                 this.suggest = []
                 return
             }
-            this.getSuggess(tmp)
+            if(this.uninput) {
+                // 并非文字按键输入，不做搜索
+                this.uninput = false
+                return
+            }
+
+            // 查找建议
+            this.getSuggess(newText)
         }
     },
     methods: {
         getSuggess (text) {
-            $.getScript(`${ $.path.suggest }?callback=setSuggess&wd=${text}`)
+            $.JSONP($.path.suggest, {
+                q: text,
+                callback: 'setSuggess',
+                _: new Date / 1
+            })
         },
         useSuggest (idx) {
-            this.submit(this.suggest[idx].value)
+            this.text = this.suggest[idx].value
+            this.submit()
         },
         removeSuggest () {
             if(this.suggestTimeOut) clearTimeout(this.suggestTimeOut)
             this.suggestTimeOut = setTimeout(() => {
-                this.suggestList.toggle(false)
+                this.suggestStatus = false
+                this.suggestList.toggle(this.suggestStatus)
             }, 200)
         },
+        suggestWithKeyBoard (arr) {
+
+            if(!this.suggestStatus) return
+            if(!this.suggest.length) return
+
+            if(this.uninputIdx === undefined) this.uninputIdx = -1
+            this.uninputIdx += arr
+            
+
+            if( this.uninputIdx < 0)  this.uninputIdx = this.suggest.length - 1
+            else if( this.uninputIdx == this.suggest.length)  this.uninputIdx = 0
+
+            this.uninput = true
+            this.suggestList.keyBoard(this.uninputIdx)
+        },
         showEngineList () {
-            this.$refs.engineList.toggle(true, this.engine)
+            this.$refs.engineList.toggle(null, this.engine)
         },
         selectEngine (active) {
             this.engine = active
-            cookie.set('engine', active, 365)
         },
-        submit (text) {
-            location.href = this.Engines[this.engine].value + encodeURIComponent(text)
+        quickSubmit () {
+            this.suggestStatus = false
+            this.suggestList.toggle(this.suggestStatus)
+            this.uninputIdx = undefined
+            this.submit()
+        },
+        submit () {
+            if(this.uninputIdx === undefined) location.href = this.Engines[this.engine].value + encodeURIComponent(this.text)
         }
     },
     mounted () {
-        window.setSuggess = ({s}) => {
+        window.setSuggess = ({q, r}) => {
             let tmp = []
-            s.forEach((item, index) => {
-                tmp.push({
-                    text: item,
-                    value: item
+            if(r instanceof Array) {
+                r.forEach(({w}) => {
+                    tmp.push({
+                        text: w,
+                        value: w
+                    })
                 })
-            })
+            }
+            this.uninputIdx = undefined
             this.suggest = tmp
-            this.suggestList.toggle(true)
+            this.suggestStatus = true
+            this.suggestList.toggle(this.suggestStatus)
+            this.suggestList.keyBoard()
         }
-
-        // 自动聚焦
-        setTimeout(() => {
-            this.$refs.input.focus()
-        }, 800)
 
     }
 }

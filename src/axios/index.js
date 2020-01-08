@@ -1,5 +1,4 @@
 import axios from 'axios'
-import md5 from 'js-md5'
 import Qs from 'qs'
 import { status, error } from './error'
 import path from './path'
@@ -106,7 +105,29 @@ window.$ = {
         post(url, params = {}, config) {
             return Ajax(url, params, 'post', config)
         },
+        // JSONP
+        JSONP(url, params = {}) {
+            if(!url) return
+            
+            if(params instanceof Object) {
 
+                let tmp = []
+                Object.keys(params).forEach(key => {
+                    tmp.push(`${key}=${params[key]}`)
+                })
+
+                if(tmp.length) {
+                    let connect = '?'
+                    if(/\?/.test(url)) connect = '&'
+
+                    url += connect + tmp.join('&')
+                }
+
+            }
+
+            this.getScript(url)
+
+        },
         // 加载脚本
         getScript(url, callback) {
 

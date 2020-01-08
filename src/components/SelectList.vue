@@ -1,6 +1,6 @@
 <template>
     <transition name="fade">
-        <div class="select-list" v-if="status">
+        <div class="select-list" v-show="status">
             <div :class="['item', active == idx ? 'active' : '' ]" v-for="(item, idx) in option" :key="idx" @click="check(idx)">{{ item.text }}</div>
         </div>
     </transition>
@@ -20,7 +20,7 @@ export default {
     data () {
         return {
            status: false,
-           active: 0
+           active: undefined
         }
     },
     props: {
@@ -31,7 +31,7 @@ export default {
     },
     methods: {
         toggle (status, active) {
-            this.status = status
+            this.status = status === null ? !this.status : status
             if(typeof(active) === 'number') {
                 this.active = active
             }
@@ -43,6 +43,12 @@ export default {
             this.$nextTick(() => {
                 this.toggle(false)
             })
+        },
+        keyBoard (active = undefined) {
+            this.active = active
+            if(active !== undefined) {
+                this.$emit('select', active)
+            }
         }
     }
 }
