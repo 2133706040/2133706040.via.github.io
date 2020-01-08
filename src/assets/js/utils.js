@@ -19,6 +19,7 @@ export const platform = {
     isMobile: /(iphone|ipod|ipad|ios|android|nokia|blackberry|webos|webos|webmate|bada|lg|ucweb)/i.test(ua),
     isIos: /(iphone|ipod|ipad|ios)/i.test(ua),
     isAndroid: /(android)/i.test(ua),
+    isChrome: /(chrome)/i.test(ua),
     isWeiXin: /micromessenger/i.test(ua),
     isQQBrowser: /qqbrowser/i.test(ua)
 }

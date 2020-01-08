@@ -6,13 +6,15 @@
         <div class="toolbar">
             <!-- 天气盒子 -->
             <weather-box :radius="radius[0]"/>
-            <a class="btn btn-qrcode" :style="radius[1]" href="https://cli.im/">二维码</a>
-            <a class="btn btn-apk" :style="radius[2]" href="https://apkcombo.com/zh-cn/apk-downloader/">软件</a>
+            <a class="btn btn-qrcode" :style="radius[1]" :href="qrcode">{{ qrcodeTxt }}</a>
+            <a class="btn btn-apk" v-if="isAndroid" :style="radius[2]" href="https://apkcombo.com/zh-cn/apk-downloader/">软件</a>
         </div>
     </base-layout>
 </template>
 
 <script>
+
+import { platform } from '~/js/utils'
 
 import WeatherBox from 'components/WeatherBox'
 import SearchBox from 'components/SearchBox'
@@ -20,8 +22,20 @@ import SearchBox from 'components/SearchBox'
 export default {
     name: 'Index',
     data () {
+
+        let qrcode = 'https://cli.im/',
+            qrcodeTxt = '二维码'
+
+        if(platform.isAndroid && platform.isChrome) {
+            qrcode = `intent://mark.qrcode/#Intent;scheme=scan;package=mark.qrcode;S.browser_fallback_url=${ encodeURIComponent('https://cli.im/') };end`
+            qrcodeTxt = '扫一扫'
+        }
+
         return {
             radius: [],
+            isAndroid: platform.isAndroid,
+            qrcode,
+            qrcodeTxt
         }
     },
     components: {
