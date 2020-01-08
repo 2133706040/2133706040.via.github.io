@@ -8,6 +8,7 @@
             <weather-box :radius="radius[0]"/>
             <a class="btn btn-qrcode" :style="radius[1]" :href="qrcode">{{ qrcodeTxt }}</a>
             <a class="btn btn-apk" v-if="isAndroid" :style="radius[2]" href="https://apkcombo.com/zh-cn/apk-downloader/">软件</a>
+            <a class="btn btn-music" :style="radius[3]" href="http://music.y444.cn/">音乐</a>
         </div>
     </base-layout>
 </template>
@@ -50,7 +51,7 @@ export default {
         setRadius () {
             // 随机圆角
             let Styles = []
-            for(let i = 0; i < 3; i++) {
+            for(let i = 0; i < 4; i++) {
                 Styles[i] = {"borderRadius": `${this.random()} ${this.random()} ${this.random()} ${this.random()}/${this.random()} ${this.random()} ${this.random()} ${this.random()}`}
             }
             this.radius = Styles

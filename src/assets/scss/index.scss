@@ -52,22 +52,27 @@
                 overflow: hidden;
                 text-overflow: ellipsis;
                 white-space: nowrap;
-                background-color: #ff6da0;
+                background-color: #23aaf2 ;
                 background-image: url(//sdk-web.eyougame.com/static/img/ic-sun.png?1576563718214);
-                box-shadow: 0 0 6px #ff6da0;
+                box-shadow: 0 0 6px #23aaf2 ;
                 .celsius {
                     display: block;
                 }
             }
             &.btn-qrcode {
-                background-color: #23aaf2;
+                background-color: #ff6da0;
                 background-image: url(//sdk-web.eyougame.com/static/img/ic-qrcode.png?1576563718214);
-                box-shadow: 0 0 6px #23aaf2;
+                box-shadow: 0 0 6px #ff6da0;
             }
             &.btn-apk {
-                background-color: #44c546;
+                background-color: #ffb558;
                 background-image: url(//sdk-web.eyougame.com/static/img/ic-apk.png?1576563718214);
-                box-shadow: 0 0 6px #44c546;
+                box-shadow: 0 0 6px #ff9d1e;
+            }
+            &.btn-music {
+                background-color: #02e276;
+                background-image: url(//sdk-web.eyougame.com/static/img/ic-music.png?1578477228574);
+                box-shadow: 0 0 6px #00b55e;
             }
         }
     }
