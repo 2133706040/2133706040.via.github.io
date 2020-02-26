@@ -117,7 +117,7 @@ export default {
 
                     let { longitude, latitude } = coords
 
-                    if(longitude === undefined || latitude === undefined) {
+                    if(longitude === undefined || longitude < 0 || latitude === undefined || latitude < 0) {
                         reject('无法获取到正确位置！')
                     }
 

@@ -40,6 +40,9 @@ export default {
         }
     },
     computed: {
+        input () {
+            return this.$refs.input
+        },
         suggestList () {
             return this.$refs.suggestList
         }
@@ -132,6 +135,11 @@ export default {
             this.suggestList.toggle(this.suggestStatus)
             this.suggestList.keyBoard()
         }
+
+        // 自动聚焦
+        setTimeout(() => {
+            this.input.focus()
+        }, 1e3)
 
     }
 }
