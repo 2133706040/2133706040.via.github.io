@@ -42,7 +42,7 @@ body {
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
     -webkit-text-size-adjust: none;
     -webkit-overflow-scrolling: auto;
-    -webkit-user-select: none;
+    // -webkit-user-select: none;
     font-family: -apple-system-font, PingFangSC-Light, Microsoft Yahei, Heiti SC, arial, miui, helvetica, sans-serif;
 }
 
@@ -155,9 +155,9 @@ input::-webkit-search-cancel-button {
     display: none
 }
 
-input:focus::-webkit-input-placeholder {
-    opacity: 0
-}
+// input:focus::-webkit-input-placeholder {
+//     opacity: 0
+// }
 
 // a,
 // button {
